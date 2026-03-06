@@ -1,4 +1,5 @@
 {
+  // Snapify Railway Deployment Metadata
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "DOCKERFILE"
