@@ -1,8 +1,10 @@
-import type { NextConfig } from 'next';
+// Snapify Next.js Config — Enables cache for RSC
 
-const nextConfig: NextConfig = {
-  // ✅ Replacement for experimental.ppr
-  cacheComponents: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    cache: "force-cache",
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
