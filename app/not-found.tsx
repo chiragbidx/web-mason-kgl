@@ -1,27 +1,17 @@
-import Link from 'next/link';
-import { CircleIcon } from 'lucide-react';
+export const metadata = {
+  title: "Page Not Found | Snapify",
+  description: "Sorry, we couldn't find the page you were looking for – Snapify API.",
+};
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
-    <div className="flex items-center justify-center min-h-[100dvh]">
-      <div className="max-w-md space-y-8 p-4 text-center">
-        <div className="flex justify-center">
-          <CircleIcon className="size-12 text-orange-500" />
-        </div>
-        <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
-          Page Not Found
-        </h1>
-        <p className="text-base text-gray-500">
-          The page you are looking for might have been removed, had its name
-          changed, or is temporarily unavailable.
-        </p>
-        <Link
-          href="/"
-          className="max-w-48 mx-auto flex justify-center py-2 px-4 border border-gray-300 rounded-full shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-        >
-          Back to Home
-        </Link>
-      </div>
-    </div>
+    <main className="min-h-[60vh] flex flex-col items-center justify-center text-center py-28">
+      <h1 className="font-display text-4xl font-bold mb-4 text-primary">404 – Not Found</h1>
+      <p className="text-neutral-600 mb-8">
+        Sorry, we couldn't find the page you were looking for.<br />
+        Go back to{" "}
+        <a href="/" className="text-primary underline hover:text-primary/80 transition">Snapify home</a>.
+      </p>
+    </main>
   );
 }
