@@ -1,9 +1,7 @@
-import { unstable_cache } from 'next/cache';
+// Snapify Cache Helper — Wrapper around Next.js unstable_cache
 
-export function cache<T>(
-  fn: () => Promise<T>,
-  key: string,
-  revalidate = 3600
-) {
-  return unstable_cache(fn, [key], { revalidate })();
+import { unstable_cache } from "next/cache";
+
+export function cache<T>(fn: (...args: any[]) => Promise<T>, key: string, ttl: number = 3600) {
+  return unstable_cache(fn, [key], { revalidate: ttl });
 }
