@@ -1,5 +1,8 @@
-export default {
+// Snapify Tailwind/PostCSS Configuration
+
+module.exports = {
   plugins: {
-    '@tailwindcss/postcss': {},
+    tailwindcss: {},
+    autoprefixer: {},
   },
 };
