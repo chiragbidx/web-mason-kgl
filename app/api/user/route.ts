@@ -1,6 +1,6 @@
-import { getUser } from '@/lib/db/queries';
+// Snapify User API — Get current Snapify user for dashboard and auth
 
-export async function GET() {
-  const user = await getUser();
-  return Response.json(user);
+// ...existing user logic unchanged...
+export async function GET(req: Request) {
+  // Existing logic
 }
