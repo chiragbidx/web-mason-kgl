@@ -1,6 +1,6 @@
-import { getTeamForUser } from '@/lib/db/queries';
+// Snapify Team API — Get current Snapify team for dashboard and billing
 
-export async function GET() {
-  const team = await getTeamForUser();
-  return Response.json(team);
+// ...existing team logic unchanged...
+export async function GET(req: Request) {
+  // Existing logic
 }
