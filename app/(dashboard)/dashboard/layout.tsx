@@ -1,73 +1,51 @@
-'use client';
+import Link from "next/link";
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Users, Settings, Shield, Activity, Menu } from 'lucide-react';
+const NAV_ITEMS = [
+  { name: "Overview", href: "/dashboard" },
+  { name: "General", href: "/dashboard/general" },
+  { name: "Activity", href: "/dashboard/activity" },
+  { name: "Security", href: "/dashboard/security" },
+  { name: "Billing", href: "/dashboard/pricing" },
+];
 
 export default function DashboardLayout({
-  children
+  children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
-  const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const navItems = [
-    { href: '/dashboard', icon: Users, label: 'Team' },
-    { href: '/dashboard/general', icon: Settings, label: 'General' },
-    { href: '/dashboard/activity', icon: Activity, label: 'Activity' },
-    { href: '/dashboard/security', icon: Shield, label: 'Security' }
-  ];
-
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
-      {/* Mobile header */}
-      <div className="lg:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4">
-        <div className="flex items-center">
-          <span className="font-medium">Settings</span>
+    <div className="flex min-h-[100dvh] flex-col bg-neutral-50">
+      <aside className="w-full md:w-56 bg-white shadow-sm md:min-h-screen px-4 py-6 md:py-8 border-b md:border-b-0 md:border-r border-neutral-200 flex md:flex-col gap-3 md:gap-7 justify-between md:justify-start items-center md:items-stretch z-20">
+        <Link href="/dashboard" className="flex items-center gap-2 mb-3 md:mb-8 select-none">
+          {/* Replace with Snapify logo/icon if available */}
+          <span className="font-display text-xl font-bold tracking-tight text-primary">
+            Snapify
+          </span>
+          <span className="text-xs font-semibold text-primary/60 hidden md:inline ml-1">
+            API Screenshots
+          </span>
+        </Link>
+        <nav className="flex md:flex-col gap-2 md:gap-1 w-full">
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "px-3 py-1.5 rounded font-medium text-sm transition-colors",
+                "hover:bg-primary/5 text-neutral-800"
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+        <div className="hidden md:block mt-auto text-xs text-neutral-400 select-none font-mono">
+          &copy; {new Date().getFullYear()} Snapify
         </div>
-        <Button
-          className="-mr-3"
-          variant="ghost"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Toggle sidebar</span>
-        </Button>
-      </div>
-
-      <div className="flex flex-1 overflow-hidden h-full">
-        {/* Sidebar */}
-        <aside
-          className={`w-64 bg-white lg:bg-gray-50 border-r border-gray-200 lg:block ${
-            isSidebarOpen ? 'block' : 'hidden'
-          } lg:relative absolute inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-            isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
-        >
-          <nav className="h-full overflow-y-auto p-4">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href} passHref>
-                <Button
-                  variant={pathname === item.href ? 'secondary' : 'ghost'}
-                  className={`shadow-none my-1 w-full justify-start ${
-                    pathname === item.href ? 'bg-gray-100' : ''
-                  }`}
-                  onClick={() => setIsSidebarOpen(false)}
-                >
-                  <item.icon className="h-4 w-4" />
-                  {item.label}
-                </Button>
-              </Link>
-            ))}
-          </nav>
-        </aside>
-
-        {/* Main content */}
-        <main className="flex-1 overflow-y-auto p-0 lg:p-4">{children}</main>
-      </div>
+      </aside>
+      <main className="flex-1 min-w-0 w-full">{children}</main>
     </div>
   );
 }
