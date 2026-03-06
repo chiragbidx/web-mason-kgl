@@ -1,10 +1,8 @@
-import type { Config } from 'drizzle-kit';
+// Snapify Drizzle ORM Config
+
+import type { Config } from "drizzle-kit";
 
 export default {
-  schema: './lib/db/schema.ts',
-  out: './lib/db/migrations',
-  dialect: 'postgresql',
-  dbCredentials: {
-    url: process.env.POSTGRES_URL!,
-  },
-} satisfies Config;
+  schema: "./lib/db/schema.ts",
+  out: "./lib/db/migrations",
+} as Config;
