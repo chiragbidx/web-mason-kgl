@@ -1,39 +1,35 @@
-import './globals.css';
-import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
-import { getUser, getTeamForUser } from '@/lib/db/queries';
-import { SWRConfig } from 'swr';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
+import { SWRConfig } from "swr";
+import { cookies } from "next/headers";
+
+const font = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: 'Next.js SaaS Starter',
-  description: 'Get started quickly with Next.js, Postgres, and Stripe.'
+  title: "Snapify – Screenshot & PDF API",
+  description:
+    "Snapify: Convert any URL to an image or PDF with a simple, pay-per-request API. Perfect for SEO, monitoring, directories, and automation.",
 };
-
-export const viewport: Viewport = {
-  maximumScale: 1
-};
-
-const manrope = Manrope({ subsets: ['latin'] });
 
 export default function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
+  // ... existing SWRConfig/cookie logic
   return (
-    <html
-      lang="en"
-      className={`bg-white dark:bg-gray-950 text-black dark:text-white ${manrope.className}`}
-    >
-      <body className="min-h-[100dvh] bg-gray-50">
+    <html lang="en" className={font.variable}>
+      <body>
         <SWRConfig
           value={{
-            fallback: {
-              // We do NOT await here anymore
-              // Only components that read this data will suspend
-              '/api/user': getUser(),
-              '/api/team': getTeamForUser()
-            }
+            fetcher: (resource, init) =>
+              fetch(resource, init).then((res) => res.json()),
+            fallback: {},
           }}
         >
           {children}
